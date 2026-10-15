@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: study-room
+  config:
+    import: optional:file:.env.local[.properties],optional:file:backend/.env.local[.properties]
+  datasource:
+    url: ${DB_URL:jdbc:mysql://127.0.0.1:3306/study_room_app?createDatabaseIfNotExist=true&serverTimezone=Asia/Shanghai}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: 12
+      connection-init-sql: SET time_zone = '+08:00'
+  sql:
+    init:
+      mode: always
+      encoding: UTF-8
+  jackson:
+    time-zone: Asia/Shanghai
+    deserialization:
+      fail-on-unknown-properties: true
+      adjust-dates-to-context-time-zone: false
+server:
+  address: ${SERVER_ADDRESS:127.0.0.1}
+  port: ${PORT:8080}
+  servlet:
+    session:
+      timeout: 30m
+      cookie:
+        http-only: true
+        same-site: lax
+        secure: ${COOKIE_SECURE:false}
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    banner: false
+app:
+  seed-enabled: ${SEED_ENABLED:true}
+  admin-password: ${ADMIN_PASSWORD:}

@@ -1,0 +1,12 @@
+.cache/
+backend/target/
+frontend/node_modules/
+frontend/dist/
+frontend/test-results/
+frontend/playwright-report/
+backend/.env.local
+backend/.env.test.local
+*.log
+.idea/
+.vscode/
+*.iml
