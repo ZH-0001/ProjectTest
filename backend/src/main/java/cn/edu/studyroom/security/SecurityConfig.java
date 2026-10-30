@@ -25,7 +25,7 @@ public class SecurityConfig {
           .csrf(c->c.csrfTokenRepository(csrf).csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
           .authorizeHttpRequests(a->a.requestMatchers("/user/register","/user/login","/user/logout","/user/csrf").permitAll()
              .requestMatchers("/admin/**").hasRole("ADMIN")
-             .requestMatchers("/room/**","/seat/**","/reserve/**","/ai/**").hasRole("STUDENT")
+             .requestMatchers("/room/**","/seat/**","/reserve/**","/ai/**","/assistant/**").hasRole("STUDENT")
              .requestMatchers("/user/me").authenticated().anyRequest().denyAll())
           .exceptionHandling(e->e.authenticationEntryPoint((req,res,err)->write(json,res,401,"UNAUTHENTICATED","请先登录"))
              .accessDeniedHandler((req,res,err)->write(json,res,403,err instanceof CsrfException?"CSRF_INVALID":"FORBIDDEN",err instanceof CsrfException?"请求令牌无效":"没有访问权限")));

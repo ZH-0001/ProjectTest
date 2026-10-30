@@ -13,10 +13,13 @@ if ($taskUrl -notmatch '^jdbc:mysql://[^/]+/[A-Za-z0-9_]+_test(?:\?.*)?$') {
 }
 $taskOldUrl = $env:DB_URL
 $taskOldPort = $env:PORT
+$taskOldAssistant = $env:ASSISTANT_ENABLED
 try {
     $env:DB_URL = $taskUrl
     $env:PORT = [string]$Port
+    # Browser fixtures mock the model-facing endpoints; never spend real API quota here.
+    $env:ASSISTANT_ENABLED = 'false'
     Push-Location $taskRoot
     try { & mvn -B -f backend/pom.xml spring-boot:run; if ($LASTEXITCODE -ne 0) { throw 'Test backend did not start successfully.' } }
     finally { Pop-Location }
-} finally { $env:DB_URL = $taskOldUrl; $env:PORT = $taskOldPort }
+} finally { $env:DB_URL = $taskOldUrl; $env:PORT = $taskOldPort; $env:ASSISTANT_ENABLED = $taskOldAssistant }

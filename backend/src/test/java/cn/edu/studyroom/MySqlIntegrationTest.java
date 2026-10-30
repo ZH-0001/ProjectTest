@@ -33,7 +33,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest(properties={"app.seed-enabled=false","logging.level.root=WARN"})
+@SpringBootTest(properties={"app.seed-enabled=false","app.assistant.enabled=false","logging.level.root=WARN"})
 @AutoConfigureMockMvc
 @Import(MySqlIntegrationTest.TestTime.class)
 class MySqlIntegrationTest {
